@@ -1,0 +1,111 @@
+.main {
+  min-height: 100vh;
+  padding: 60px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.job-list {
+  width: 100%;
+  max-width: 800px;
+
+  h2 {
+    font-size: 1.2rem;
+    letter-spacing: 0.3em;
+    text-transform: uppercase;
+    color: #888;
+    margin-bottom: 40px;
+    text-align: center;
+
+    &::after {
+      content: '';
+      display: block;
+      width: 60px;
+      height: 2px;
+      background: #7c3aed;
+      margin: 12px auto 0;
+    }
+  }
+}
+
+.job-card {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(124, 58, 237, 0.25);
+  border-radius: 12px;
+  padding: 28px 32px;
+  margin-bottom: 20px;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 3px;
+    height: 100%;
+    background: linear-gradient(180deg, #7c3aed, #a855f7);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+
+  &:hover {
+    border-color: rgba(124, 58, 237, 0.6);
+    background: rgba(124, 58, 237, 0.05);
+    transform: translateX(4px);
+    box-shadow: 0 0 30px rgba(124, 58, 237, 0.1);
+
+    &::before {
+      opacity: 1;
+    }
+  }
+
+  h3 {
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #f0f0f0;
+    margin-bottom: 6px;
+    letter-spacing: 0.02em;
+  }
+
+  .company {
+    font-size: 0.85rem;
+    color: #a855f7;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 14px;
+  }
+
+  .description {
+    font-size: 0.95rem;
+    color: #888;
+    line-height: 1.7;
+    margin-bottom: 20px;
+  }
+
+  a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    color: #7c3aed;
+    text-decoration: none;
+    letter-spacing: 0.05em;
+    font-weight: 500;
+    transition: color 0.2s;
+
+    &:hover {
+      color: #a855f7;
+    }
+  }
+}
+
+.empty {
+  text-align: center;
+  color: #555;
+  font-size: 1rem;
+  letter-spacing: 0.1em;
+  margin-top: 60px;
+}

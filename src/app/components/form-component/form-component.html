@@ -1,0 +1,114 @@
+<main class="main">
+
+  <!-- прогрес бар -->
+  <div class="progress">
+    <div class="progress__step" [class.active]="currentStep >= 1" [class.done]="currentStep > 1">1</div>
+    <div class="progress__line" [class.active]="currentStep > 1"></div>
+    <div class="progress__step" [class.active]="currentStep >= 2" [class.done]="currentStep > 2">2</div>
+    <div class="progress__line" [class.active]="currentStep > 2"></div>
+    <div class="progress__step" [class.active]="currentStep >= 3">3</div>
+  </div>
+
+  <!-- КРОК 1 -->
+  @if (currentStep === 1) {
+    <div class="step">
+      <h1>Оберіть рівень</h1>
+      <section class="chips">
+        @for (level of levels; track level) {
+          <button type="button" class="chip" [class.selected]="selectedLevel === level" (click)="selectedLevel = level">
+            {{ level }}
+          </button>
+        }
+      </section>
+
+      <h1>Оберіть напрямок</h1>
+      <section class="chips">
+        @for (dir of directions; track dir) {
+          <button type="button" class="chip" [class.selected]="selectedDirection === dir" (click)="selectedDirection = dir">
+            {{ dir }}
+          </button>
+        }
+      </section>
+
+      <button class="btn-next" [disabled]="!selectedLevel || !selectedDirection" (click)="goToStep2()">
+        Далі →
+      </button>
+    </div>
+  }
+
+  <!-- КРОК 2 -->
+  @if (currentStep === 2) {
+    <div class="step">
+      <h1>Оберіть стек — {{ selectedDirection }}</h1>
+      <section class="chips">
+        @for (item of availableStack; track item) {
+          <button type="button" class="chip" [class.selected]="selectedStack.includes(item)" (click)="toggleStack(item)">
+            {{ item }}
+          </button>
+        }
+      </section>
+
+      <div class="nav-buttons">
+        <button class="btn-back" (click)="goBack()">← Назад</button>
+        <button class="btn-next" [disabled]="selectedStack.length === 0" (click)="goToStep3()">Далі →</button>
+      </div>
+    </div>
+  }
+
+  <!-- КРОК 3 -->
+  @if (currentStep === 3) {
+    <div class="step">
+      <h1>Умови роботи</h1>
+
+      <h3>Формат</h3>
+      <section class="chips">
+        @for (format of formats; track format) {
+          <button type="button" class="chip" [class.selected]="selectedFormat === format" (click)="selectedFormat = format">
+            {{ format }}
+          </button>
+        }
+      </section>
+
+      <h3>Зайнятість</h3>
+      <section class="chips">
+        @for (emp of employments; track emp) {
+          <button type="button" class="chip" [class.selected]="selectedEmployment === emp" (click)="selectedEmployment = emp">
+            {{ emp }}
+          </button>
+        }
+      </section>
+
+      <h3>Рівень англійської</h3>
+      <section class="chips">
+        @for (eng of englishLevels; track eng) {
+          <button type="button" class="chip" [class.selected]="selectedEnglish === eng" (click)="selectedEnglish = eng">
+            {{ eng }}
+          </button>
+        }
+      </section>
+
+      @if (selectedFormat === 'Офіс' || selectedFormat === 'Гібрид') {
+        <h3>Місто</h3>
+        <input class="input" type="text" placeholder="Наприклад: Київ" [(ngModel)]="city" />
+      }
+
+      <h3>Зарплатні очікування (USD)</h3>
+      <div class="salary-row">
+        <input class="input" type="number" placeholder="Від" [(ngModel)]="salaryFrom" />
+        <input class="input" type="number" placeholder="До" [(ngModel)]="salaryTo" />
+      </div>
+
+      @if (error) {
+        <p class="error">{{ error }}</p>
+      }
+
+      <div class="nav-buttons">
+        <button class="btn-back" (click)="goBack()">← Назад</button>
+        <button class="btn-next" [disabled]="!selectedFormat || !selectedEmployment || isLoading" (click)="onSearch()">
+          @if (isLoading) { Пошук... } @else { Знайти роботу }
+        </button>
+      </div>
+    </div>
+  }
+
+</main>
