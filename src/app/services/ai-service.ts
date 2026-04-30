@@ -13,7 +13,7 @@ export class AiService {
   jobs: Job[] = [];
 
   findJobs(skills: string[]): Observable<Job[]> {
-  return this.http.post<{ jobs: Job[] }>('https://job-finder-backend-tj70.onrender.com', { skills }).pipe(
+  return this.http.post<{ jobs: Job[] }>('https://job-finder-backend-tj70.onrender.com/api/find-jobs', { skills }).pipe(
     map(res => res.jobs)
   );
 }
